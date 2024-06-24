@@ -26,12 +26,12 @@ class Ksiazka(models.Model):
     tytul = models.CharField(max_length=70)
     podtytul = models.CharField(max_length=70, null = True, blank = True)
     opis = models.TextField()
-    autor = models.ManyToManyField(Autor)
     seria = models.CharField(max_length=70, null = True, blank = True)
     status = models.CharField(choices=KSIAZKA_STATUS, max_length=25, default='', null = True, blank = True)
     #ceneo_url = models.URLField(null = True, blank = True) #Taki bajer do przetestowania. Link do zakupu książki
     gatunki = models.ManyToManyField(Gatunek)
-    
+    autor = models.ManyToManyField(Autor)
+
     def __str__(self):
         return self.tytul
 

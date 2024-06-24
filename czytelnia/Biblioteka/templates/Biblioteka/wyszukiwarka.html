@@ -1,0 +1,19 @@
+{% extends '../base.html' %}
+
+{% block content %}
+
+    <h1>Wyszukiwarka książek</h1>
+    <form method="get">
+        {{ form.as_p }}
+        <button type="submit">Szukaj</button>
+    </form>
+    <h2>Wyniki wyszukiwania</h2>
+    <ul>
+        {% for ksiazka in wyniki %}
+            <li>{{ ksiazka.tytul }} - Autorzy: {% for autor in ksiazka.autor.all %}{{ autor }}{% if not forloop.last %}, {% endif %}{% endfor %}</li>
+        {% empty %}
+            <li>Brak wyników</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

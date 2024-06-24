@@ -1,4 +1,11 @@
-{% extends "Biblioteka/base.html" %}
+{% extends "../base.html" %}
+
 {% block content %}
-<h1> Biblioteka </h1>
-{% endblock content %}
+<h2>Biblioteka </h2>
+    <h3>URLs:</h3>
+    <ul>
+        <li><a href="{% url 'profile' %}">Profil użytkownika</a></li>
+        <li><a href="{% url 'search' %}">Wyszukiwarka książek</a></li>
+
+    </ul>
+{% endblock %}

@@ -1,0 +1,37 @@
+
+{% load static %}
+<!Doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Biblioteka</title>
+    </head>
+    <body>
+        {% block header %}
+        <h1>Czytelnia</h1>
+        <p><a href="{% url 'home' %}">Strona główna</a></p>
+        {% endblock %}
+
+        {% block content %}
+
+        {% endblock %}
+
+        {% block login %}
+            {% if user.is_authenticated %}
+
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">Wyloguj</button>
+                </form>
+
+            {% else %}
+
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <button type="submit">Zaloguj sie na stronie</button>
+                </form>
+
+            {% endif %}
+        {% endblock %}
+    </body>
+</html>
