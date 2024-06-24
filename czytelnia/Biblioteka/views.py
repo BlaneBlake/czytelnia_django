@@ -1,19 +1,13 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render, redirect
-from .models import Ksiazka
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Ksiazka, Polka
 from .forms import KsiazkaSearchForm
-
 
 
 @login_required
 def home(request):
     return render(request, 'Biblioteka/home.html')
-    
-def about(request):
-    return render(request, 'Biblioteka/about.html', {'title': 'About'})
-
-# -------------------------------------------------------------------
 
 
 def authView(request):
@@ -25,18 +19,22 @@ def authView(request):
     else:
         form = UserCreationForm()
 
-    return render(request, 'registration/signup.html', {'form' : form})
+    return render(request, 'registration/signup.html', {'form': form})
 
 
 @login_required
 def user_profile(request):
+    user = request.user
+    polki = Polka.objects.filter(user=user)
     context = {
         'username': request.user.username,
         'first_name': request.user.first_name,
         'last_name': request.user.last_name,
         'email': request.user.email,
+        'polki': polki,
     }
     return render(request, 'Biblioteka/user-profile.html', context)
+
 
 def wyszukiwarka(request):
     form = KsiazkaSearchForm(request.GET or None)
@@ -51,3 +49,21 @@ def wyszukiwarka(request):
             wyniki = wyniki.filter(gatunki=form.cleaned_data['gatunek'])
 
     return render(request, 'Biblioteka/wyszukiwarka.html', {'form': form, 'wyniki': wyniki})
+
+
+@login_required
+def polka_view(request, status):
+    polki = Polka.objects.filter(user=request.user, status=status)
+    return render(request, 'Biblioteka/polka.html', {'polki': polki, 'status': status})
+
+
+@login_required
+def add_to_polka(request, ksiazka_id, status):
+    ksiazka = get_object_or_404(Ksiazka, id=ksiazka_id)
+    Polka.objects.update_or_create(user=request.user, ksiazka=ksiazka, defaults={'status': status})
+    return redirect('polka_view', status=status)
+
+
+def book_detail(request, pk):
+    ksiazka = get_object_or_404(Ksiazka, pk=pk)
+    return render(request, 'Biblioteka/book_detail.html', {'ksiazka': ksiazka})

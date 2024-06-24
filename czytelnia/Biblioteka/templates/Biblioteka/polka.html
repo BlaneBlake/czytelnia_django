@@ -1,0 +1,12 @@
+{% extends "../base.html" %}
+
+{% block content %}
+  <h1>{{ status|capfirst }}</h1>
+  <ul>
+    {% for polka in polki %}
+      <li>{{ polka.ksiazka.tytul }}</li>
+    {% empty %}
+      <li>No books in this shelf.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

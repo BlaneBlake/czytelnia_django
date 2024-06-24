@@ -1,0 +1,13 @@
+{% extends "../base.html" %}
+
+{% block content %}
+  <h1>{{ ksiazka.tytul }}</h1>
+  <p>{{ ksiazka.opis }}</p>
+  <p>Autorzy: {% for autor in ksiazka.autor.all %}{{ autor }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+  <p>Gatunki: {% for gatunek in ksiazka.gatunki.all %}{{ gatunek }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+  <h2>Add to shelf:</h2>
+  <a href="{% url 'add_to_polka' ksiazka.id 'want to read' %}">Want to Read</a>
+  <a href="{% url 'add_to_polka' ksiazka.id 'currently reading' %}">Currently Reading</a>
+  <a href="{% url 'add_to_polka' ksiazka.id 'read' %}">Read</a>
+  <a href="{% url 'add_to_polka' ksiazka.id 'did not finish' %}">Did Not Finish</a>
+{% endblock %}

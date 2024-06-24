@@ -1,16 +1,49 @@
 {% extends '../base.html' %}
-{#{% load static %}#}
-{##}
-{#    {% block header %}#}
-{#        <header>#}
-{#            {% include 'static_html/navigation.html' %}#}
-{#        </header>#}
-{#    {% endblock %}#}
 
     {% block content %}
+
         <h2>Użytkownik:</h2>
         <p> {{ username }} </p>
         <p> {{ first_name }} </p>
         <p> {{ last_name }} </p>
         <p> {{ email }} </p>
+
+
+        <h2>Półki użytkownika</h2>
+
+        <h3>Chcę przeczytać</h3>
+        <ul>
+            {% for polka in polki %}
+                {% if polka.status == 'want to read' %}
+                    <li><a href="{% url 'book_detail' polka.ksiazka.id %}">{{ polka.ksiazka.tytul }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+
+        <h3>W trakcie czytania</h3>
+        <ul>
+            {% for polka in polki %}
+                {% if polka.status == 'currently reading' %}
+                    <li><a href="{% url 'book_detail' polka.ksiazka.id %}">{{ polka.ksiazka.tytul }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+
+        <h3>Przeczytane</h3>
+        <ul>
+            {% for polka in polki %}
+                {% if polka.status == 'read' %}
+                    <li><a href="{% url 'book_detail' polka.ksiazka.id %}">{{ polka.ksiazka.tytul }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+
+        <h3>Porzucone</h3>
+        <ul>
+            {% for polka in polki %}
+                {% if polka.status == 'did not finish' %}
+                    <li><a href="{% url 'book_detail' polka.ksiazka.id %}">{{ polka.ksiazka.tytul }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
     {% endblock %}

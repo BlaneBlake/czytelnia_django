@@ -31,6 +31,11 @@
                     <button type="submit">Zaloguj sie na stronie</button>
                 </form>
 
+                <form method="post" action="{% url 'authview' %}">
+                    {% csrf_token %}
+                    <button type="submit">Załóż konto</button>
+                </form>
+
             {% endif %}
         {% endblock %}
     </body>
