@@ -9,8 +9,15 @@
     </head>
     <body>
         {% block header %}
-        <h1>Czytelnia</h1>
-        <p><a href="{% url 'home' %}">Strona główna</a></p>
+            <h1>Czytelnia</h1>
+            <p><a href="{% url 'home' %}">Strona główna</a></p>
+        {% endblock %}
+        
+        {% block navigation %}
+            <ul>
+                <li><a href="{% url 'profile' %}">Profil użytkownika</a></li>
+                <li><a href="{% url 'search' %}">Wyszukiwarka książek</a></li>
+            </ul>
         {% endblock %}
 
         {% block content %}
