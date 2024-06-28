@@ -4,26 +4,41 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Biblioteka</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Biblioteka{% endblock %}</title>
         <link rel="stylesheet" href="{% static 'style.css' %}">
     </head>
     <body>
+    
+        <header>
         {% block header %}
             <h1>Czytelnia</h1>
             <p><a href="{% url 'home' %}">Strona główna</a></p>
         {% endblock %}
+        </header>
         
+        <nav>
         {% block navigation %}
-            <ul>
-                <li><a href="{% url 'profile' %}">Profil użytkownika</a></li>
-                <li><a href="{% url 'search' %}">Wyszukiwarka książek</a></li>
-            </ul>
+            
+                <a href="{% url 'profile' %}">Profil użytkownika</a>
+                <a href="{% url 'search' %}">Wyszukiwarka książek</a>
+            
         {% endblock %}
-
+        </nav>
+        
+        <div class="content">
         {% block content %}
 
         {% endblock %}
-
+        </div>
+        
+        <footer>
+            {% block footer %}
+                
+            {% endblock %}
+        </footer>
+        
+        <div class="login">
         {% block login %}
             {% if user.is_authenticated %}
 
@@ -46,5 +61,6 @@
 
             {% endif %}
         {% endblock %}
+        </div>
     </body>
 </html>

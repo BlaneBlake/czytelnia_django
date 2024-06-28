@@ -10,9 +10,8 @@
     <h2>Wyniki wyszukiwania</h2>
     <ul>
         {% for ksiazka in wyniki %}
-            <li>
-                <a href="{% url 'book_detail' ksiazka.id %}">
-                {{ ksiazka.tytul }} - Autorzy: {% for autor in ksiazka.autor.all %}{{ autor }}{% if not forloop.last %}, {% endif %}{% endfor %}</li>
+            <li><a href="{% url 'book_detail' ksiazka.id %}">
+                {{ ksiazka.tytul }} - Autorzy: {% for autor in ksiazka.autor.all %}{{ autor }}{% if not forloop.last %}, {% endif %}{% endfor %}</a></li>
         {% empty %}
             <li>Brak wyników</li>
         {% endfor %}
